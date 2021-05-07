@@ -61,20 +61,6 @@ body {
   align-items: center;
 }
 
-.card {
-  margin: 15px 15px 25px 15px;
-  width: 27%;
-  height: 27vw;
-}
-
-.billboard img {
-  width: 100%;
-  border-radius: 2rem;
-}
-
-
-
-
 /* LOADER */
 .lds-ring {
   display: inline-block;

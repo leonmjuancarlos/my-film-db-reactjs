@@ -7,7 +7,6 @@ export function Billboard(props) {
 
     const [filmResults, setFilmResults] = useState([])
 
-
     // Is executed only one time ", []"
     useEffect(() => {
 
@@ -23,7 +22,7 @@ export function Billboard(props) {
         // This is due to useEffect WARNING
         callAPI()
 
-    }, [props.filmNames])
+    }, [props.filmNames]) // Dependencies
 
 
     let cleanData = removeDuplicates(filmResults)
@@ -45,7 +44,11 @@ export function Billboard(props) {
 
     // FilmCard receive all film data (id, image, title)
     let listCard = cleanData.map(d =>
-        d.map(d1 => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />
+        d.map(d1 =>
+            <FilmCard
+                key={`${d1.image}${d1.id}`}
+                filmData={d1}
+            />
         )
     )
 
