@@ -10,47 +10,28 @@ export function Billboard(props) {
 
     const [filmResults, setFilmResults] = useState([])
 
+
+    // Is executed only one time ", []"
     useEffect(async () => {
 
-        for (let filmName of filmNames) {
+        filmNames.map( async (filmName) => {
             const data = await getFilmByName(filmName)
             setFilmResults(filmRes => filmRes.concat([data]))
-        }
-
-            /*for(let filmName of filmNames) {
-                getFilmByName(filmName)
-                    .then( data => {
-
-                        setFilmResults(filmResults.concat([data]))
-
-                    })
-            }
-            getFilmByName()
-            */
+        })
 
     }, [])
 
-
     let cleanData = removeDuplicates(filmResults)
-    let listCard = cleanData.map(d => d.map(d1 => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />))
-    /*
-    let searchResults = []
-    if (filmResults.length === filmNames.length) {
-        // each have (title, imgURL, id)
-        searchResults = filmResults.map( (searchData) => {
-            return searchData.titles.map( (filmData) => {
-                return filmData
-            })
-        })
 
-    }
+    let listCard = cleanData.map(d =>
+        d.map(d1 => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />
+        )
+    )
 
-    let flatSearchResults = searchResults.flat();
-*/
+    console.log(cleanData)
 
 
     // Conditional rendering
-
     return ( cleanData.length >= filmNames.length ?
         (
             <div className="billboard">
@@ -58,6 +39,7 @@ export function Billboard(props) {
             </div>
         ) :
         (
+            // Loading Spinner
             <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
         )
 
@@ -110,19 +92,9 @@ function removeDuplicates(arr) {
 
     }
 
-
     return newArr.map( search => {
         return search.titles.map( title => {
             return title
         })
     })
-
-    /*
-    console.log(arr.map((data) => {
-        return data.titles["0"]
-    }))
-    */
-
-
-
 }
