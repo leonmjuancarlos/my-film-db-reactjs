@@ -13,6 +13,9 @@ export function Billboard(props) {
         const filmNames = props.filmNames;
 
         async function callAPI() {
+            // if searchbar text === ''
+            if (filmNames[0] === '') return;
+
             filmNames.map( async (filmName) => {
                 const data = await getFilmByName(filmName)
                 setFilmResults(filmRes => filmRes.concat([data]))
@@ -25,7 +28,7 @@ export function Billboard(props) {
     }, [props.filmNames]) // Dependencies
 
 
-    let cleanData = removeDuplicates(filmResults)
+    let cleanData = getTitlesFromResponse(filmResults)
     /*
         cleanData == [
             [
@@ -52,8 +55,10 @@ export function Billboard(props) {
         )
     )
 
+    if (filmResults.length === 0) return null
+
     // Conditional rendering
-    return ( cleanData.length >= props.filmNames.length ?
+    return ( (cleanData.length >= props.filmNames.length) ?
         (
             <div className="billboard">
                 {listCard}
@@ -90,27 +95,7 @@ export function Billboard(props) {
 }
 */
 
-function removeDuplicates(arr) {
+function getTitlesFromResponse(arr) {
 
-    let newArr = []
-
-    for (let i = 0; i < arr.length; i++) {
-
-        if (newArr.length === 0) {
-            newArr.push(arr[i])
-        } else if (newArr !== undefined && arr !== undefined) {
-            if (newArr.map(d => d.titles["0"].title).includes(arr[i].titles["0"].title)) {
-
-            } else {
-                newArr.push(arr[i])
-            }
-        }
-
-    }
-
-    return newArr.map( search => {
-        return search.titles.map( title => {
-            return title
-        })
-    })
+    return arr.map( req => req.titles.map( title => title))
 }
