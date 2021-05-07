@@ -9,7 +9,7 @@ export function Billboard(props) {
 
     // Is executed only one time ", []"
     useEffect(() => {
-
+        setFilmResults([])
         const filmNames = props.filmNames;
 
         async function callAPI() {
