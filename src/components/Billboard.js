@@ -1,38 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { getFilmByName } from "../API/Search"
 import { FilmCard } from "./FilmCard";
-import axios from "axios";
 
 
 export function Billboard(props) {
-
-    const filmNames = props.filmNames;
 
     const [filmResults, setFilmResults] = useState([])
 
 
     // Is executed only one time ", []"
-    useEffect(async () => {
+    useEffect(() => {
 
-        filmNames.map( async (filmName) => {
-            const data = await getFilmByName(filmName)
-            setFilmResults(filmRes => filmRes.concat([data]))
-        })
+        const filmNames = props.filmNames;
 
-    }, [])
+        async function callAPI() {
+            filmNames.map( async (filmName) => {
+                const data = await getFilmByName(filmName)
+                setFilmResults(filmRes => filmRes.concat([data]))
+            })
+        }
+
+        // This is due to useEffect WARNING
+        callAPI()
+
+    }, [props.filmNames])
+
 
     let cleanData = removeDuplicates(filmResults)
+    /*
+        cleanData == [
+            [
+                {id, img, title}
+                {id, img, title}
+                ...
+            ],
+                        [
+                {id, img, title}
+                {id, img, title}
+                ...
+            ]
+        ]
+    */
 
+
+    // FilmCard receive all film data (id, image, title)
     let listCard = cleanData.map(d =>
         d.map(d1 => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />
         )
     )
 
-    console.log(cleanData)
-
-
     // Conditional rendering
-    return ( cleanData.length >= filmNames.length ?
+    return ( cleanData.length >= props.filmNames.length ?
         (
             <div className="billboard">
                 {listCard}
@@ -47,11 +65,8 @@ export function Billboard(props) {
 
 }
 
-
-
 /*
     API JSON RESPONSE
-
 {
     "titles":[
                 0:{
@@ -70,8 +85,6 @@ export function Billboard(props) {
     2:{...}3 items
     ]
 }
-
-
 */
 
 function removeDuplicates(arr) {

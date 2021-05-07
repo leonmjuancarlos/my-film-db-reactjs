@@ -1,6 +1,3 @@
-import { getFilmByName } from "../API/Search"
-import React, { useState, useEffect } from "react";
-
 
 export function FilmCard(props) {
 

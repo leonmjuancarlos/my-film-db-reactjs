@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import "./App.css";
 import {Header} from "./components/Header"
-import {FilmCard} from "./components/FilmCard"
 import { Billboard } from "./components/Billboard";
 
 function App() {
@@ -23,6 +21,5 @@ function App() {
   )
 
 }
-
 
 export default App;
