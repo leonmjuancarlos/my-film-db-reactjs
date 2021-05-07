@@ -6,9 +6,12 @@
   padding: 0;
 }
 
+body {
+  background-color: #f3f4f7;
+}
+
 .header {
-  font-size: 40px;
-  background-color: #0c3866;
+  font-size: 25px;
   width: 100%;
   height: 4em;
   display: flex;
@@ -16,6 +19,30 @@
   align-items: center;
   flex-direction: row;
   box-shadow: 0 2px 6px #222;
+
+  background: rgb(176, 181, 186);
+  background: -moz-radial-gradient(
+    circle,
+    rgba(176, 181, 186, 1) 0%,
+    rgba(73, 28, 74, 1) 42%,
+    rgba(13, 57, 102, 1) 73%,
+    rgba(34, 34, 34, 1) 100%
+  );
+  background: -webkit-radial-gradient(
+    circle,
+    rgba(176, 181, 186, 1) 0%,
+    rgba(73, 28, 74, 1) 42%,
+    rgba(13, 57, 102, 1) 73%,
+    rgba(34, 34, 34, 1) 100%
+  );
+  background: radial-gradient(
+    circle,
+    rgba(176, 181, 186, 1) 0%,
+    rgba(73, 28, 74, 1) 42%,
+    rgba(13, 57, 102, 1) 73%,
+    rgba(34, 34, 34, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b0b5ba",endColorstr="#222222",GradientType=1);
 }
 
 .header h1 {
@@ -23,4 +50,64 @@
   color: #49c0b6;
   text-align: center;
   text-shadow: 2px 5px 4px #222;
+}
+
+.billboard {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card {
+  margin: 15px 15px 25px 15px;
+  width: 27%;
+  height: 27vw;
+}
+
+.billboard img {
+  width: 100%;
+  border-radius: 2rem;
+}
+
+
+
+
+/* LOADER */
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #222;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #222 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
