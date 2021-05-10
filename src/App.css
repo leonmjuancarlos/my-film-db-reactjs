@@ -52,6 +52,16 @@ body {
   text-shadow: 2px 5px 4px #222;
 }
 
+main {
+  width: 68%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .billboard {
   width: 70%;
   display: flex;
