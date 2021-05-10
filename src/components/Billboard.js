@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { getFilmByName } from "../API/Search"
+import { getFilmByName } from "../API/Search";
 import { FilmCard } from "./FilmCard";
 
-
 export function Billboard(props) {
+  const [filmResults, setFilmResults] = useState([]);
 
-    const [filmResults, setFilmResults] = useState([])
+  // Is executed only one time ", []"
+  useEffect(() => {
+    setFilmResults([]);
+    const filmNames = props.filmNames;
 
-    // Is executed only one time ", []"
-    useEffect(() => {
-        setFilmResults([])
-        const filmNames = props.filmNames;
+    async function callAPI() {
+      // if searchbar text === ''
+      if (filmNames[0] === "") return;
 
-        async function callAPI() {
-            // if searchbar text === ''
-            if (filmNames[0] === '') return;
+      filmNames.map(async (filmName) => {
+        const data = await getFilmByName(filmName);
+        setFilmResults((filmRes) => filmRes.concat([data]));
+      });
+    }
 
-            filmNames.map( async (filmName) => {
-                const data = await getFilmByName(filmName)
-                setFilmResults(filmRes => filmRes.concat([data]))
-            })
-        }
+    // This is due to useEffect WARNING
+    callAPI();
+  }, [props.filmNames]); // Dependencies
 
-        // This is due to useEffect WARNING
-        callAPI()
-
-    }, [props.filmNames]) // Dependencies
-
-
-    let cleanData = getTitlesFromResponse(filmResults)
-    /*
+  let cleanData = getTitlesFromResponse(filmResults);
+  /*
         cleanData == [
             [
                 {id, img, title}
                 {id, img, title}
                 ...
             ],
-                        [
+            [
                 {id, img, title}
                 {id, img, title}
                 ...
@@ -44,33 +40,25 @@ export function Billboard(props) {
         ]
     */
 
+  // FilmCard receive all film data (id, image, title)
+  let listCard = cleanData.map((d) =>
+    d.map((d1) => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />)
+  );
 
-    // FilmCard receive all film data (id, image, title)
-    let listCard = cleanData.map(d =>
-        d.map(d1 =>
-            <FilmCard
-                key={`${d1.image}${d1.id}`}
-                filmData={d1}
-            />
-        )
-    )
+  if (filmResults.length === 0) return null;
 
-    if (filmResults.length === 0) return null
-
-    // Conditional rendering
-    return ( (cleanData.length >= props.filmNames.length) ?
-        (
-            <div className="billboard">
-                {listCard}
-            </div>
-        ) :
-        (
-            // Loading Spinner
-            <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-        )
-
-    )
-
+  // Conditional rendering
+  return cleanData.length >= props.filmNames.length ? (
+    <div className="billboard">{listCard}</div>
+  ) : (
+    // Loading Spinner
+    <div className="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
 }
 
 /*
@@ -96,6 +84,5 @@ export function Billboard(props) {
 */
 
 function getTitlesFromResponse(arr) {
-
-    return arr.map( req => req.titles.map( title => title))
+  return arr.map((req) => req.titles.map((title) => title));
 }
