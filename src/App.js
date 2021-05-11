@@ -5,16 +5,23 @@ import { Header } from "./components/Header";
 import { Billboard } from "./components/Billboard";
 import { SearchBar } from "./components/SearchBar";
 import { useState } from "react";
+import { FilmCard } from "./components/FilmCard";
 
 function App() {
-  const [myFilms, setFilms] = useState([]);
+  const [searchedFilms, setSearchedFIlms] = useState([]);
+  const [addedFilms, setAddedFilms] = useState([]);
 
   const handleCheckChange = (event) => {
     event.preventDefault();
     let searchText = document.getElementById("search-text");
-    setFilms([]);
-    setFilms([searchText.value]);
+    setSearchedFIlms([]);
+    setSearchedFIlms([searchText.value]);
     searchText.value = "";
+  };
+
+  const handleAddFilmToSidebar = (filmData) => {
+    if (!addedFilms.includes(filmData))
+      setAddedFilms([...addedFilms, filmData]);
   };
 
   // <FilmCard film="Godzilla" />
@@ -24,9 +31,17 @@ function App() {
       <div className="main-wrapper">
         <main>
           <SearchBar onCheckChange={handleCheckChange} />
-          <Billboard className="billboard" filmNames={myFilms} />
+          <Billboard
+            className="billboard"
+            filmNames={searchedFilms}
+            onSomeCardAdded={handleAddFilmToSidebar}
+          />
         </main>
-        <div className="sidebar"></div>
+        <div className="sidebar">
+          {addedFilms.map((filmData) => (
+            <FilmCard key={filmData.id} filmData={filmData} />
+          ))}
+        </div>
       </div>
     </>
   );

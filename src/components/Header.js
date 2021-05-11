@@ -6,7 +6,7 @@ export function Header(/*props*/) {
       <GroupWorkIcon
         style={{
           fontSize: "5.6rem",
-          color: "var(--header_icon)",
+          color: "var(--c4)",
         }}
       />
       <h1>MyFilmDb</h1>

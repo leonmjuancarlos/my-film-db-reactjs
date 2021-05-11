@@ -4,7 +4,11 @@ export function FilmCard(props) {
   //props: filmData (title, image, id)
 
   return (
-    <div className="card" onMouseOver={() => putCovers()}>
+    <div
+      className="card"
+      onMouseOver={() => putCovers()}
+      onClick={() => props.onSomeCardAdded(props.filmData)}
+    >
       <img
         className="cover"
         src={props.filmData.image}

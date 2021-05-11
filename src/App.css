@@ -1,9 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap");
 
 :root {
-  --header_background: #494d5f;
-  --header_title: #a0d2db;
-  --header_icon: #d0bdf4;
+  --c1: #a0d2eb;
+  --c2: #e5eaf5;
+  --c3: #d0bdf4;
+  --c4: #8458b3;
+  --c5: #494d5f;
 }
 
 #root {
@@ -33,14 +35,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  box-shadow: 0 2px 22px var(--header_background);
+  box-shadow: 0 2px 22px var(--c5);
 
-  background: var(--header_background);
+  background: var(--c5);
 }
 
 .header h1 {
   font-family: "Fugaz One", cursive;
-  color: var(--header_title);
+  color: var(--c1);
   text-align: center;
   text-shadow: 2px 3px 4px #222;
 }
@@ -56,7 +58,8 @@ body {
 }
 
 main {
-  width: 68%;
+  /*width: 68%;*/
+  flex: 2.7;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -65,7 +68,8 @@ main {
 }
 
 .billboard {
-  width: 100%;
+  /*width: 100%;*/
+  flex: 1;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -75,9 +79,13 @@ main {
 
 .sidebar {
   width: 32%;
-  background-color: var(--header_background);
+  background-color: var(--c5);
   flex: 1;
-  border-top: 2px solid var(--header_icon);
+  border-top: 2px solid var(--c3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* LOADER */

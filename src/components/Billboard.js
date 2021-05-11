@@ -42,7 +42,13 @@ export function Billboard(props) {
 
   // FilmCard receive all film data (id, image, title)
   let listCard = cleanData.map((d) =>
-    d.map((d1) => <FilmCard key={`${d1.image}${d1.id}`} filmData={d1} />)
+    d.map((d1) => (
+      <FilmCard
+        key={`${d1.image}${d1.id}`}
+        filmData={d1}
+        onSomeCardAdded={props.onSomeCardAdded}
+      />
+    ))
   );
 
   if (filmResults.length === 0) return null;
