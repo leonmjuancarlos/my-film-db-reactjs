@@ -4,12 +4,25 @@ import "./components/SearchBar.css";
 import { Header } from "./components/Header";
 import { Billboard } from "./components/Billboard";
 import { SearchBar } from "./components/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilmCard } from "./components/FilmCard";
 
 function App() {
   const [searchedFilms, setSearchedFIlms] = useState([]);
   const [addedFilms, setAddedFilms] = useState([]);
+
+  useEffect(() => {
+    async function cardAddAnimation() {
+      const sidebar = document.getElementsByClassName("sidebar")[0];
+      const lastCard = sidebar.lastChild;
+      if (lastCard) {
+        lastCard.style.transition = "transform 1s";
+        lastCard.style.transform = "scale(1)";
+      }
+    }
+
+    cardAddAnimation();
+  });
 
   const handleCheckChange = (event) => {
     event.preventDefault();
@@ -39,7 +52,7 @@ function App() {
         </main>
         <div className="sidebar">
           {addedFilms.map((filmData) => (
-            <FilmCard key={filmData.id} filmData={filmData} />
+            <FilmCard key={filmData.id} filmData={filmData} scale="0.5" />
           ))}
         </div>
       </div>
