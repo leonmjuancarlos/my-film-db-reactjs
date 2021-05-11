@@ -21,10 +21,13 @@ function App() {
   return (
     <>
       <Header />
-      <main>
-        <SearchBar onCheckChange={handleCheckChange} />
-        <Billboard className="billboard" filmNames={myFilms} />
-      </main>
+      <div className="main-wrapper">
+        <main>
+          <SearchBar onCheckChange={handleCheckChange} />
+          <Billboard className="billboard" filmNames={myFilms} />
+        </main>
+        <div className="sidebar"></div>
+      </div>
     </>
   );
 }
