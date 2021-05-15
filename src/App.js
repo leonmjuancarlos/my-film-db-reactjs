@@ -1,28 +1,35 @@
 import "./App.css";
 import "./components/FilmCard.css";
 import "./components/SearchBar.css";
+import "./components/Sidebar.css";
+import {
+  sidebarAddAnimation,
+  sidebarRemoveAnimation,
+} from "./animations/sidebar";
 import { Header } from "./components/Header";
 import { Billboard } from "./components/Billboard";
 import { SearchBar } from "./components/SearchBar";
+import { Sidebar } from "./components/Sidebar";
 import { useEffect, useState } from "react";
-import { FilmCard } from "./components/FilmCard";
 
 function App() {
   const [searchedFilms, setSearchedFIlms] = useState([]);
   const [addedFilms, setAddedFilms] = useState([]);
+  const [removeSidebar, setRemoveSidebar] = useState(false);
 
   useEffect(() => {
-    async function cardAddAnimation() {
-      const sidebar = document.getElementsByClassName("sidebar")[0];
-      const lastCard = sidebar.lastChild;
-      if (lastCard) {
-        lastCard.style.transition = "transform 1s";
-        lastCard.style.transform = "scale(1)";
-      }
+    if (removeSidebar) {
+      sidebarRemoveAnimation();
+      setTimeout(() => {
+        setAddedFilms([]);
+      }, 850);
+      setRemoveSidebar(false);
     }
+  }, [removeSidebar]);
 
-    cardAddAnimation();
-  });
+  useEffect(async () => {
+    sidebarAddAnimation();
+  }, [addedFilms]);
 
   const handleCheckChange = (event) => {
     event.preventDefault();
@@ -37,6 +44,44 @@ function App() {
       setAddedFilms([...addedFilms, filmData]);
   };
 
+  function handleRemoveButtonClick() {
+    //const sidebar = document.getElementsByClassName("sidebar")[0];
+
+    setRemoveSidebar(true);
+
+    /* function cardsRemoveEffect() {
+      if (addedFilms.length !== 0 && sidebar.getElementsByClassName("card")) {
+        const sidebarCardArray = sidebar.getElementsByClassName("card");
+
+        const firstCardOffsetTop =
+          sidebarCardArray[0].getElementsByTagName("img")[0].offsetTop;
+
+        for (let i = 0; i < sidebarCardArray.length; i++) {
+          if (i === 0) continue;
+          const el = sidebarCardArray[i];
+
+          const elOffsetLeft = sidebarCardArray[i].offsetLeft;
+          const elOffsetTop = sidebarCardArray[i].offsetTop;
+          el.style.position = "absolute";
+          el.style.top = `${elOffsetTop}px`;
+          el.style.left = `${
+            elOffsetLeft - parseInt(el.style.marginLeft, 10)
+          }px`;
+
+           setTimeout(() => {
+            el.style.transform = `translateY(
+            -${firstCardOffsetTop + 422 + 32}px)`;
+          }, 100);
+
+          //el.style.transform = "translateY(-2rem)";
+        }
+      }
+    } */
+    //cardsRemoveEffect();
+    //setTimeout(() => setAddedFilms([]), 800);
+    //setAddedFilms([]);
+  }
+
   // <FilmCard film="Godzilla" />
   return (
     <>
@@ -50,11 +95,10 @@ function App() {
             onSomeCardAdded={handleAddFilmToSidebar}
           />
         </main>
-        <div className="sidebar">
-          {addedFilms.map((filmData) => (
-            <FilmCard key={filmData.id} filmData={filmData} scale="0.5" />
-          ))}
-        </div>
+        <Sidebar
+          addedFilms={addedFilms}
+          onRemoveButtonClick={handleRemoveButtonClick}
+        />
       </div>
     </>
   );

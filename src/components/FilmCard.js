@@ -7,7 +7,9 @@ export function FilmCard(props) {
     <div
       className="card"
       onMouseOver={() => putCovers()}
-      onClick={() => props.onSomeCardAdded(props.filmData)}
+      onClick={() => {
+        props.onSomeCardAdded(props.filmData);
+      }}
       style={{ transform: `scale(${props.scale || 1})` }}
     >
       <img
