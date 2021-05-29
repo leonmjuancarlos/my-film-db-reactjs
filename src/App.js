@@ -1,53 +1,51 @@
-import "./App.css";
-import "./components/FilmCard.css";
-import "./components/SearchBar.css";
-import "./components/Sidebar.css";
+import './App.css'
+import './components/FilmCard.css'
+import './components/SearchBar.css'
+import './components/Sidebar.css'
+import { useEffect, useState } from 'react'
 import {
   sidebarAddAnimation,
   sidebarRemoveAnimation,
-} from "./animations/sidebar";
-import { Header } from "./components/Header";
-import { Billboard } from "./components/Billboard";
-import { SearchBar } from "./components/SearchBar";
-import { Sidebar } from "./components/Sidebar";
-import { useEffect, useState } from "react";
+} from './animations/sidebar'
+import { Header } from './components/Header'
+import { Billboard } from './components/Billboard'
+import { SearchBar } from './components/SearchBar'
+import { Sidebar } from './components/Sidebar'
 
 function App() {
-  const [searchedFilms, setSearchedFIlms] = useState([]);
-  const [addedFilms, setAddedFilms] = useState([]);
-  const [removeSidebar, setRemoveSidebar] = useState(false);
-
+  const [searchedFilms, setSearchedFIlms] = useState([])
+  const [addedFilms, setAddedFilms] = useState([])
+  const [removeSidebar, setRemoveSidebar] = useState(false)
   useEffect(() => {
     if (removeSidebar) {
-      sidebarRemoveAnimation();
+      sidebarRemoveAnimation()
       setTimeout(() => {
-        setAddedFilms([]);
-      }, 850);
-      setRemoveSidebar(false);
+        setAddedFilms([])
+      }, 850)
+      setRemoveSidebar(false)
     }
-  }, [removeSidebar]);
+  }, [removeSidebar])
 
   useEffect(async () => {
-    sidebarAddAnimation();
-  }, [addedFilms]);
+    sidebarAddAnimation()
+  }, [addedFilms])
 
   const handleCheckChange = (event) => {
-    event.preventDefault();
-    let searchText = document.getElementById("search-text");
-    setSearchedFIlms([]);
-    setSearchedFIlms([searchText.value]);
-    searchText.value = "";
-  };
+    event.preventDefault()
+    const searchText = document.getElementById('search-text')
+    setSearchedFIlms([])
+    setSearchedFIlms([searchText.value])
+    searchText.value = ''
+  }
 
   const handleAddFilmToSidebar = (filmData) => {
-    if (!addedFilms.includes(filmData))
-      setAddedFilms([...addedFilms, filmData]);
-  };
+    if (!addedFilms.includes(filmData)) setAddedFilms([...addedFilms, filmData])
+  }
 
   function handleRemoveButtonClick() {
-    //const sidebar = document.getElementsByClassName("sidebar")[0];
+    // const sidebar = document.getElementsByClassName("sidebar")[0];
 
-    setRemoveSidebar(true);
+    setRemoveSidebar(true)
 
     /* function cardsRemoveEffect() {
       if (addedFilms.length !== 0 && sidebar.getElementsByClassName("card")) {
@@ -77,9 +75,9 @@ function App() {
         }
       }
     } */
-    //cardsRemoveEffect();
-    //setTimeout(() => setAddedFilms([]), 800);
-    //setAddedFilms([]);
+    // cardsRemoveEffect();
+    // setTimeout(() => setAddedFilms([]), 800);
+    // setAddedFilms([]);
   }
 
   // <FilmCard film="Godzilla" />
@@ -88,7 +86,8 @@ function App() {
       <Header />
       <div className="main-wrapper">
         <main>
-          <SearchBar onCheckChange={handleCheckChange} />
+          {' '}
+          <SearchBar onCheckChange={handleCheckChange} />{' '}
           <Billboard
             className="billboard"
             filmNames={searchedFilms}
@@ -101,7 +100,7 @@ function App() {
         />
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

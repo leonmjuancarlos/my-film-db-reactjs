@@ -1,3 +1,32 @@
+# ESLint & Prettier
+
+```
+npm install --save-dev eslint prettier
+```
+
+```
+npx install-peerdeps --dev @imaginary-cloud/eslint-config-react
+```
+
+**Add to *package.json***
+
+```
+"eslintConfig": {
+    "extends": "@imaginary-cloud/react"
+},
+"prettier": "@imaginary-cloud/prettier-config"
+```
+
+```
+npm install --save-dev @imaginary-cloud/prettier-config
+```
+
+**Update devDependencies**
+
+```
+npm update --save-dev
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
