@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { getFilmByName } from "../API/Search";
-import { FilmCard } from "./FilmCard";
+import React, { useState, useEffect } from 'react'
+import { getFilmByName } from '../API/Search'
+import { FilmCard } from './FilmCard'
 
 export function Billboard(props) {
-  const [filmResults, setFilmResults] = useState([]);
+  const [filmResults, setFilmResults] = useState([])
 
   // Is executed only one time ", []"
   useEffect(() => {
-    setFilmResults([]);
-    const filmNames = props.filmNames;
+    setFilmResults([])
+    const { filmNames } = props
 
     async function callAPI() {
       // if searchbar text === ''
-      if (filmNames[0] === "") return;
+      if (filmNames[0] === '') return
 
       filmNames.map(async (filmName) => {
-        const data = await getFilmByName(filmName);
-        setFilmResults((filmRes) => filmRes.concat([data]));
-      });
+        const data = await getFilmByName(filmName)
+        setFilmResults((filmRes) => filmRes.concat([data]))
+      })
     }
 
     // This is due to useEffect WARNING
-    callAPI();
-  }, [props.filmNames]); // Dependencies
+    callAPI()
+  }, [props.filmNames]) // Dependencies
 
-  let cleanData = getTitlesFromResponse(filmResults);
+  const cleanData = getTitlesFromResponse(filmResults)
   /*
         cleanData == [
             [
@@ -41,17 +41,17 @@ export function Billboard(props) {
     */
 
   // FilmCard receive all film data (id, image, title)
-  let listCard = cleanData.map((d) =>
+  const listCard = cleanData.map((d) =>
     d.map((d1) => (
       <FilmCard
         key={`${d1.image}${d1.id}`}
         filmData={d1}
         onSomeCardAdded={props.onSomeCardAdded}
       />
-    ))
-  );
+    )),
+  )
 
-  if (filmResults.length === 0) return null;
+  if (filmResults.length === 0) return null
 
   // Conditional rendering
   return cleanData.length >= props.filmNames.length ? (
@@ -64,7 +64,7 @@ export function Billboard(props) {
       <div></div>
       <div></div>
     </div>
-  );
+  )
 }
 
 /*
@@ -90,5 +90,5 @@ export function Billboard(props) {
 */
 
 function getTitlesFromResponse(arr) {
-  return arr.map((req) => req.titles.map((title) => title));
+  return arr.map((req) => req.titles.map((title) => title))
 }

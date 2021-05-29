@@ -1,8 +1,9 @@
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import './components/FilmCard.css'
 import './components/SearchBar.css'
 import './components/Sidebar.css'
-import { useEffect, useState } from 'react'
+
 import {
   sidebarAddAnimation,
   sidebarRemoveAnimation,
@@ -86,8 +87,7 @@ function App() {
       <Header />
       <div className="main-wrapper">
         <main>
-          {' '}
-          <SearchBar onCheckChange={handleCheckChange} />{' '}
+          <SearchBar onCheckChange={handleCheckChange} />
           <Billboard
             className="billboard"
             filmNames={searchedFilms}

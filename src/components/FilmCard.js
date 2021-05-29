@@ -1,14 +1,14 @@
-import { putCovers } from "../animations/covers";
+import { putCovers } from '../animations/covers'
 
 export function FilmCard(props) {
-  //props: filmData (title, image, id)
+  // props: filmData (title, image, id)
 
   return (
     <div
       className="card"
       onMouseOver={() => putCovers()}
       onClick={() => {
-        props.onSomeCardAdded(props.filmData);
+        props.onSomeCardAdded(props.filmData)
       }}
       style={{ transform: `scale(${props.scale || 1})` }}
     >
@@ -21,5 +21,5 @@ export function FilmCard(props) {
         <p>{props.filmData.title.toUpperCase()}</p>
       </div>
     </div>
-  );
+  )
 }

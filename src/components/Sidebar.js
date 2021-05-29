@@ -1,9 +1,13 @@
-import { FilmCard } from "./FilmCard";
+import { FilmCard } from './FilmCard'
 
 export function Sidebar(props) {
   return (
     <div className="sidebar">
-      <button id="sidebar-remove-btn" onClick={props.onRemoveButtonClick}>
+      <button
+        type="button"
+        id="sidebar-remove-btn"
+        onClick={props.onRemoveButtonClick}
+      >
         Remove
       </button>
 
@@ -17,5 +21,5 @@ export function Sidebar(props) {
         />
       ))}
     </div>
-  );
+  )
 }
