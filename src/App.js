@@ -6,7 +6,7 @@ import './components/Sidebar.css'
 
 import {
   sidebarAddAnimation,
-  sidebarRemoveAnimation,
+  sidebarRemoveAnimation
 } from './animations/sidebar'
 import { Header } from './components/Header'
 import { Billboard } from './components/Billboard'

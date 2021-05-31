@@ -48,7 +48,7 @@ export function Billboard(props) {
         filmData={d1}
         onSomeCardAdded={props.onSomeCardAdded}
       />
-    )),
+    ))
   )
 
   if (filmResults.length === 0) return null
