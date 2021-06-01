@@ -52,3 +52,34 @@ export function sidebarRemoveAnimation() {
     })
   }
 }
+
+// isOpen is a bool
+export function toggleSidebar(isOpen) {
+  const sidebar = document.querySelectorAll('.sidebar')[0]
+  const removeBtn = document.getElementById('sidebar-remove-btn')
+  const toggleBtn = document.getElementById('sidebar-toggle-btn')
+  const cards = sidebar.querySelectorAll('.card')
+
+  if (isOpen) {
+    sidebar.style.transition = 'all .8s'
+    sidebar.style.flex = '0 1 0%'
+    toggleBtn.style.backgroundColor = '#ff0f0f'
+    removeBtn.style.display = 'none'
+
+    cards.forEach((el) => {
+      const card = el
+      card.style.display = 'none'
+    })
+  } else {
+    sidebar.style.transition = 'all .8s'
+    sidebar.style.flex = '1'
+    toggleBtn.style.backgroundColor = '#4caf50'
+    setTimeout(() => {
+      removeBtn.style.display = 'block'
+      cards.forEach((el) => {
+        const card = el
+        card.style.display = 'flex'
+      })
+    }, 400)
+  }
+}

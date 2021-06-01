@@ -7,6 +7,7 @@ import './components/Sidebar.css'
 import {
   sidebarAddAnimation,
   sidebarRemoveAnimation,
+  toggleSidebar,
 } from './animations/sidebar'
 import Header from './components/Header'
 import Billboard from './components/Billboard'
@@ -31,6 +32,13 @@ function App() {
     sidebarAddAnimation()
   }, [addedFilms])
 
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    toggleSidebar(isOpen)
+    console.log(isOpen)
+  }, [isOpen])
+
   const handleCheckChange = (event) => {
     event.preventDefault()
     const searchText = document.getElementById('search-text')
@@ -44,41 +52,7 @@ function App() {
   }
 
   function handleRemoveButtonClick() {
-    // const sidebar = document.getElementsByClassName("sidebar")[0];
-
     setRemoveSidebar(true)
-
-    /* function cardsRemoveEffect() {
-      if (addedFilms.length !== 0 && sidebar.getElementsByClassName("card")) {
-        const sidebarCardArray = sidebar.getElementsByClassName("card");
-
-        const firstCardOffsetTop =
-          sidebarCardArray[0].getElementsByTagName("img")[0].offsetTop;
-
-        for (let i = 0; i < sidebarCardArray.length; i++) {
-          if (i === 0) continue;
-          const el = sidebarCardArray[i];
-
-          const elOffsetLeft = sidebarCardArray[i].offsetLeft;
-          const elOffsetTop = sidebarCardArray[i].offsetTop;
-          el.style.position = "absolute";
-          el.style.top = `${elOffsetTop}px`;
-          el.style.left = `${
-            elOffsetLeft - parseInt(el.style.marginLeft, 10)
-          }px`;
-
-           setTimeout(() => {
-            el.style.transform = `translateY(
-            -${firstCardOffsetTop + 422 + 32}px)`;
-          }, 100);
-
-          //el.style.transform = "translateY(-2rem)";
-        }
-      }
-    } */
-    // cardsRemoveEffect();
-    // setTimeout(() => setAddedFilms([]), 800);
-    // setAddedFilms([]);
   }
 
   // <FilmCard film="Godzilla" />
@@ -87,6 +61,15 @@ function App() {
       <Header />
       <div className="main-wrapper">
         <main>
+          <button
+            type="button"
+            id="sidebar-toggle-btn"
+            onClick={() => {
+              setIsOpen(!isOpen)
+            }}
+          >
+            Toggle
+          </button>
           <SearchBar onCheckChange={handleCheckChange} />
           <Billboard
             className="billboard"
