@@ -1,17 +1,24 @@
-import { FilmCard } from './FilmCard'
+import React from 'react'
+import PropTypes from 'prop-types'
+import FilmCard from './FilmCard'
 
-export function Sidebar(props) {
+export default function Sidebar({ addedFilms, onRemoveButtonClick }) {
+  Sidebar.propTypes = {
+    addedFilms: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onRemoveButtonClick: PropTypes.func.isRequired,
+  }
+
   return (
     <div className="sidebar">
       <button
         type="button"
         id="sidebar-remove-btn"
-        onClick={props.onRemoveButtonClick}
+        onClick={onRemoveButtonClick}
       >
         Remove
       </button>
 
-      {props.addedFilms.map((filmData) => (
+      {addedFilms.map((filmData) => (
         <FilmCard
           key={filmData.id}
           filmData={filmData}

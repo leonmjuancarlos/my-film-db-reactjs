@@ -6,12 +6,12 @@ import './components/Sidebar.css'
 
 import {
   sidebarAddAnimation,
-  sidebarRemoveAnimation
+  sidebarRemoveAnimation,
 } from './animations/sidebar'
-import { Header } from './components/Header'
-import { Billboard } from './components/Billboard'
-import { SearchBar } from './components/SearchBar'
-import { Sidebar } from './components/Sidebar'
+import Header from './components/Header'
+import Billboard from './components/Billboard'
+import SearchBar from './components/SearchBar'
+import Sidebar from './components/Sidebar'
 
 function App() {
   const [searchedFilms, setSearchedFIlms] = useState([])

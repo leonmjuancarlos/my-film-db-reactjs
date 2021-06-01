@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { getFilmByName } from '../API/Search'
-import { FilmCard } from './FilmCard'
+import PropTypes from 'prop-types'
+import getFilmByName from '../API/Search'
+import FilmCard from './FilmCard'
 
-export function Billboard(props) {
+function getTitlesFromResponse(arr) {
+  return arr.map((req) => req.titles.map((title) => title))
+}
+
+export default function Billboard({ filmNames, onSomeCardAdded }) {
+  // PROPS VALIDATION
+  Billboard.propTypes = {
+    onSomeCardAdded: PropTypes.func.isRequired,
+    filmNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }
+
   const [filmResults, setFilmResults] = useState([])
 
   // Is executed only one time ", []"
   useEffect(() => {
     setFilmResults([])
-    const { filmNames } = props
 
     async function callAPI() {
       // if searchbar text === ''
@@ -22,7 +32,7 @@ export function Billboard(props) {
 
     // This is due to useEffect WARNING
     callAPI()
-  }, [props.filmNames]) // Dependencies
+  }, [filmNames]) // Dependencies
 
   const cleanData = getTitlesFromResponse(filmResults)
   /*
@@ -46,7 +56,7 @@ export function Billboard(props) {
       <FilmCard
         key={`${d1.image}${d1.id}`}
         filmData={d1}
-        onSomeCardAdded={props.onSomeCardAdded}
+        onSomeCardAdded={onSomeCardAdded}
       />
     ))
   )
@@ -54,15 +64,15 @@ export function Billboard(props) {
   if (filmResults.length === 0) return null
 
   // Conditional rendering
-  return cleanData.length >= props.filmNames.length ? (
+  return cleanData.length >= filmNames.length ? (
     <div className="billboard">{listCard}</div>
   ) : (
     // Loading Spinner
     <div className="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div />
+      <div />
+      <div />
+      <div />
     </div>
   )
 }
@@ -88,7 +98,3 @@ export function Billboard(props) {
     ]
 }
 */
-
-function getTitlesFromResponse(arr) {
-  return arr.map((req) => req.titles.map((title) => title))
-}

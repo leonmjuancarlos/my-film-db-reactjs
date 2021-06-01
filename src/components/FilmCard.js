@@ -1,24 +1,34 @@
-import { putCovers } from '../animations/covers'
+import React from 'react'
+import PropTypes from 'prop-types'
+import putCovers from '../animations/covers'
 
-export function FilmCard(props) {
+export default function FilmCard({ filmData, onSomeCardAdded, scale }) {
   // props: filmData (title, image, id)
+  FilmCard.propTypes = {
+    filmData: PropTypes.objectOf(PropTypes.object).isRequired,
+    onSomeCardAdded: PropTypes.func.isRequired,
+    scale: PropTypes.number,
+  }
+  FilmCard.defaultProps = {
+    scale: 0,
+  }
 
   return (
     <div
+      role="textbox"
+      tabIndex="-1"
       className="card"
       onMouseOver={() => putCovers()}
+      onFocus={() => putCovers()}
       onClick={() => {
-        props.onSomeCardAdded(props.filmData)
+        onSomeCardAdded(filmData)
       }}
-      style={{ transform: `scale(${props.scale || 1})` }}
+      onKeyPress={() => {}}
+      style={{ transform: `scale(${scale || 1})` }}
     >
-      <img
-        className="cover"
-        src={props.filmData.image}
-        alt={props.filmData.title}
-      />
+      <img className="cover" src={filmData.image} alt={filmData.title} />
       <div className="card-info">
-        <p>{props.filmData.title.toUpperCase()}</p>
+        <p>{filmData.title.toUpperCase()}</p>
       </div>
     </div>
   )

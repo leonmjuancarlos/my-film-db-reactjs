@@ -1,6 +1,7 @@
+import React from 'react'
 import GroupWorkIcon from '@material-ui/icons/GroupWork'
 
-export function Header(/* props */) {
+export default function Header(/* props */) {
   return (
     <div className="header">
       <GroupWorkIcon
